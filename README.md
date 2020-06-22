@@ -1,7 +1,8 @@
 # PLAYLIST APP
 
-This is a playlist app that will allow the user to create, save, and listen to Spotify playlists using the command line interface. Songs can be searched by title, or browsed by artist. The user must create a username and password before starting. 
+This is a playlist app that will allow the user to create, save, and listen to Spotify playlists using the command line interface. Songs can be searched by title, or browsed by artist. The user must create a username and password before starting.
 
+video demo: https://youtu.be/3M6ZKf-CaSU
 
 ## installation instructions
 
