@@ -20,7 +20,9 @@ class CommandLineInterface
     end
     
     def welcome
-        display_banner("welcome to the playlist app!")
+        font = TTY::Font.new('3d')
+        puts font.write("playlist").green
+        puts "\n" * 3
         sleep(1)
     end
 
@@ -29,14 +31,17 @@ class CommandLineInterface
 #########################################################
 
     def login_or_sign_up
-        print "\nHave you used the app before? (enter: 'y' or 'n') ".green
-        response = gets.chomp
+        print "Have you used the app before? (enter: 'y' or 'n') ".green
+        response = gets.chomp.downcase
         if response == "y"
             get_username_and_password
         elsif response == "n"
             create_new_account
         else
             puts "\nResponse not recognized. Please try again.\n".red
+            sleep(2)
+            clear_screen
+            welcome
             login_or_sign_up
         end
     end
@@ -50,14 +55,12 @@ class CommandLineInterface
         clear_screen
         welcome
         
-        print "\nPlease enter a username: ".green
+        print "Please enter a username: ".green
         username = gets.chomp
 
         if User.find_by(username: username)
             puts "\nSORRY! THAT USERNAME HAS ALREADY BEEN TAKEN. TRY BEING MORE ORIGINAL.".red.bold
-            
-            sleep(5)
-
+            sleep(2)
             create_new_account
         end
 
@@ -71,11 +74,9 @@ class CommandLineInterface
             if password == password_confirmation
                 flag = false
             else
-                clear_screen
-                welcome
-                login_or_sign_up
-
                 puts "\nYour passwords didn't match. Try again but stay focused this time.".red.bold
+                sleep(2)
+                create_new_account
             end
         end
 
@@ -95,7 +96,7 @@ class CommandLineInterface
         clear_screen
         welcome
 
-        print "\nEnter your username: ".green
+        print "Enter your username: ".green
         username = gets.chomp
 
 
@@ -123,7 +124,7 @@ class CommandLineInterface
             clear_screen
             welcome
 
-            puts "\nUsername not found, please try again".red.bold
+            puts "Username not found, please try again".red.bold
             print "\nWould you like to try creating a new account? (y/n) :".green
             response = gets.chomp
 
@@ -132,7 +133,8 @@ class CommandLineInterface
             elsif response == "n"
                 get_username_and_password
             else
-                "Input not recognized. Please enter 'y' or 'n'".red
+                puts "\nInput not recognized. Please enter 'y' or 'n'".red.bold
+                sleep(2)
                 get_username_and_password
             end
         end
